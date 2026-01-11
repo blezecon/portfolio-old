@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useTheme } from '../context/ThemeContext';
-
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [clicked, setClicked] = useState(false);
   const [linkHovered, setLinkHovered] = useState(false);
-  const { isDarkMode } = useTheme();
 
   useEffect(() => {
     const updatePosition = (e) => {
@@ -32,7 +29,7 @@ const CustomCursor = () => {
       document.removeEventListener('mousemove', updatePosition);
       document.removeEventListener('mousedown', handleMouseDown);
       document.removeEventListener('mouseup', handleMouseUp);
-      
+
       links.forEach(link => {
         link.removeEventListener('mouseenter', handleLinkHoverStart);
         link.removeEventListener('mouseleave', handleLinkHoverEnd);
@@ -43,10 +40,10 @@ const CustomCursor = () => {
   // Update cursor color based on theme
   useEffect(() => {
     document.documentElement.style.setProperty(
-      '--cursor-color', 
-      isDarkMode ? '#60a5fa' : '#3b82f6'
+      '--cursor-color',
+      '#60a5fa'
     );
-  }, [isDarkMode]);
+  }, []);
 
   return (
     <>

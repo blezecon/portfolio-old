@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ThemeProvider } from './context/ThemeContext';
+
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import AboutSection from './components/AboutSection';
@@ -14,7 +14,7 @@ import SmoothScroll from './components/SmoothScroll';
 const ErrorFallback = ({ error }) => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-dark-light p-6 rounded-lg shadow-lg max-w-md">
+      <div className="bg-dark-light p-6 rounded-lg shadow-lg max-w-md">
         <h2 className="text-xl font-bold text-red-600 mb-4">Something went wrong</h2>
         <p className="mb-4">{error.message}</p>
         <button
@@ -54,7 +54,7 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
+    <>
       <SmoothScroll>
         <ParticleBackground />
         <div className="relative min-h-screen">
@@ -69,7 +69,7 @@ function App() {
           <Footer />
         </div>
       </SmoothScroll>
-    </ThemeProvider>
+    </>
   );
 }
 

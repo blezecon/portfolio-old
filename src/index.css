@@ -11,24 +11,28 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "CustomHeader";
   src: url(/PixelSplitter-Bold.ttf);
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "EnchantmentTable";
   src: url(/SgaSmoothRegular-DO0Y3.ttf);
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "CustomFont";
   src: url(/MinecraftRegular-Bmg3.otf);
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: "CustomFont";
   src: url(/MinecraftBold-nMK1.otf);
@@ -38,12 +42,13 @@
 
 @layer base {
   html {
-     /* Lenis recommended style */
+    /* Lenis recommended style */
     height: auto;
     cursor: url('/src/assets/normal.cur'), auto !important;
   }
-  
-  html.lenis, html.lenis body {
+
+  html.lenis,
+  html.lenis body {
     height: auto;
   }
 
@@ -62,19 +67,29 @@
   .lenis.lenis-scrolling iframe {
     pointer-events: none;
   }
-  
+
   body {
-    @apply font-sans bg-light dark:bg-dark text-dark dark:text-light transition-colors duration-300;
+    @apply font-sans bg-dark text-light transition-colors duration-300;
   }
-  
+
   /* Apply CustomHeader to all headings by default */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-header;
   }
-  
+
   /* Make all interactive elements use the custom cursor */
-  a, button, input[type="button"], input[type="submit"], 
-  input[type="reset"], select, .cursor-pointer {
+  a,
+  button,
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  select,
+  .cursor-pointer {
     cursor: url('/src/assets/normal.cur'), pointer !important;
   }
 }
@@ -83,44 +98,44 @@
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20;
   }
-  
+
   .section-title {
     @apply text-3xl md:text-4xl font-bold mb-8 relative inline-block font-header;
   }
-  
+
   .section-title::after {
     @apply content-[''] absolute left-0 -bottom-2 h-1 w-2/3 bg-primary;
   }
-  
+
   .btn {
     @apply px-6 py-3 rounded-md font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-opacity-50;
   }
-  
+
   .btn-primary {
     @apply btn bg-primary hover:bg-primary-dark text-white focus:ring-primary-light;
   }
-  
+
   .btn-secondary {
     @apply btn bg-secondary hover:bg-secondary-dark text-white focus:ring-secondary-light;
   }
-  
+
   .btn-outline {
     @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-white focus:ring-primary-light;
   }
-  
+
   .card {
-    @apply bg-white dark:bg-dark-light rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+    @apply bg-dark-light rounded-lg shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
   }
-  
+
   .skill-badge {
-    @apply px-3 py-1 rounded-full text-sm font-medium bg-primary-light/20 text-primary-dark dark:bg-primary-dark/30 dark:text-primary-light;
+    @apply px-3 py-1 rounded-full text-sm font-medium bg-primary-dark/30 text-primary-light;
   }
-  
+
   /* Logo styling class */
   .logo-text {
     @apply font-logo text-3xl text-primary;
   }
-  
+
   /* Name styling class based on the screenshot */
   .name-text {
     @apply font-minecraft text-primary;
@@ -138,6 +153,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -158,15 +174,18 @@
 /* High resolution styles */
 @media (min-width: 3072px) {
   html {
-    font-size: 18px; /* Increase base font size for high-res displays */
+    font-size: 18px;
+    /* Increase base font size for high-res displays */
   }
-  
+
   .section-container {
-    max-width: 1800px; /* Wider container for high-res displays */
+    max-width: 1800px;
+    /* Wider container for high-res displays */
     padding: 0 3rem;
   }
-  
-  .btn-primary, .btn-outline {
+
+  .btn-primary,
+  .btn-outline {
     font-size: 1.25rem;
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
@@ -176,44 +195,55 @@
 /* 4K resolution specific styles */
 @media (min-width: 3840px) {
   html {
-    font-size: 22px; /* Even larger base font size for 4K */
+    font-size: 22px;
+    /* Even larger base font size for 4K */
   }
-  
+
   .section-container {
-    max-width: 2200px; /* Much wider container for 4K displays */
+    max-width: 2200px;
+    /* Much wider container for 4K displays */
     padding: 0 4rem;
   }
-  
-  .btn-primary, .btn-outline {
+
+  .btn-primary,
+  .btn-outline {
     font-size: 1.5rem;
     padding: 1rem 2rem;
     border-radius: 0.75rem;
   }
-  
+
   /* Make headings larger */
-  h1, .h1 {
+  h1,
+  .h1 {
     font-size: 3.5rem;
   }
-  
-  h2, .h2 {
+
+  h2,
+  .h2 {
     font-size: 2.75rem;
   }
-  
-  h3, .h3 {
+
+  h3,
+  .h3 {
     font-size: 2rem;
   }
-  
+
   /* Make other text larger */
-  p, li, a, button, input, textarea {
+  p,
+  li,
+  a,
+  button,
+  input,
+  textarea {
     font-size: 1.25rem;
   }
-  
+
   /* Larger spacing */
   .ultra-hd-4k .section-container {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  
+
   /* Larger icons */
   .ultra-hd-4k svg:not([class*="w-"]) {
     width: 2rem;
@@ -229,17 +259,13 @@
   .filter-button {
     @apply px-4 py-2 rounded-full text-sm font-medium transition-all;
   }
-  
+
   .filter-button-inactive {
-    @apply bg-gray-200 text-dark 
-           hover:bg-primary-light/50 hover:text-dark
-           dark:bg-dark-light dark:text-light 
-           dark:hover:bg-primary-dark/50;
+    @apply bg-dark-light text-light hover:bg-primary-dark/50;
   }
-  
+
   .filter-button-active {
-    @apply bg-primary text-white border border-primary-dark
-           dark:bg-primary dark:text-white dark:border-primary-light;
+    @apply bg-primary text-white border border-primary-light;
   }
 }
 
@@ -251,8 +277,10 @@
 }
 
 .swiper-slide {
-  height: auto; /* Allow slides to size according to their content */
-  padding-bottom: 50px; /* Add space for pagination bullets */
+  height: auto;
+  /* Allow slides to size according to their content */
+  padding-bottom: 50px;
+  /* Add space for pagination bullets */
 }
 
 /* Make cards equal height */
@@ -267,7 +295,8 @@
 .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  background-color: rgba(79, 70, 229, 0.5); /* primary color with transparency */
+  background-color: rgba(79, 70, 229, 0.5);
+  /* primary color with transparency */
   opacity: 0.5;
   transition: all 0.3s ease;
 }
@@ -275,14 +304,16 @@
 .swiper-pagination-bullet-active {
   width: 12px;
   height: 12px;
-  background-color: #4f46e5; /* primary color */
+  background-color: #4f46e5;
+  /* primary color */
   opacity: 1;
 }
 
 /* Style navigation arrows */
 .swiper-button-next,
 .swiper-button-prev {
-  color: #4f46e5; /* primary color */
+  color: #4f46e5;
+  /* primary color */
   background-color: rgba(255, 255, 255, 0.3);
   width: 40px;
   height: 40px;
@@ -315,22 +346,23 @@
 
 /* High resolution adaptations */
 @media (min-width: 3072px) {
+
   .swiper-button-next,
   .swiper-button-prev {
     width: 60px;
     height: 60px;
   }
-  
+
   .swiper-button-next:after,
   .swiper-button-prev:after {
     font-size: 24px;
   }
-  
+
   .swiper-pagination-bullet {
     width: 15px;
     height: 15px;
   }
-  
+
   .swiper-pagination-bullet-active {
     width: 18px;
     height: 18px;
@@ -339,22 +371,23 @@
 
 /* 4K resolution adaptations */
 @media (min-width: 3840px) {
+
   .swiper-button-next,
   .swiper-button-prev {
     width: 80px;
     height: 80px;
   }
-  
+
   .swiper-button-next:after,
   .swiper-button-prev:after {
     font-size: 30px;
   }
-  
+
   .swiper-pagination-bullet {
     width: 20px;
     height: 20px;
   }
-  
+
   .swiper-pagination-bullet-active {
     width: 24px;
     height: 24px;
@@ -365,9 +398,12 @@
 
 /* Enchanted Code Glitching Effect */
 @keyframes enchantedGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     text-shadow: 0 0 2px rgba(79, 70, 229, 0.4);
   }
+
   50% {
     text-shadow: 0 0 8px rgba(79, 70, 229, 0.7), 0 0 12px rgba(6, 182, 212, 0.3);
   }
@@ -386,6 +422,7 @@
   0% {
     background-position: 0 0, 0 0;
   }
+
   100% {
     background-position: 100px 50px, -100px -50px;
   }
@@ -393,9 +430,12 @@
 
 /* Enchanted Code Glitching Effect */
 @keyframes enchantedGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     text-shadow: 0 0 2px rgba(79, 70, 229, 0.4);
   }
+
   50% {
     text-shadow: 0 0 8px rgba(79, 70, 229, 0.7), 0 0 12px rgba(6, 182, 212, 0.3);
   }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FiMail, FiGithub, FiLinkedin, FiTwitter, FiSend } from 'react-icons/fi';
-import { useTheme } from '../context/ThemeContext';
+
 
 const ContactSection = () => {
   const [ref, inView] = useInView({
@@ -10,7 +10,7 @@ const ContactSection = () => {
     threshold: 0.1,
   });
 
-  const { isDarkMode } = useTheme();
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -29,17 +29,17 @@ const ContactSection = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const form = e.target;
       const formData = new FormData(form);
-      
+
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: new URLSearchParams(formData).toString()
       });
-      
+
       if (response.ok) {
         setSubmitMessage('Thank you for your message! I will get back to you soon.');
         setFormData({
@@ -48,7 +48,7 @@ const ContactSection = () => {
           subject: '',
           message: ''
         });
-        
+
         // Clear success message after 5 seconds
         setTimeout(() => {
           setSubmitMessage('');
@@ -99,7 +99,7 @@ const ContactSection = () => {
   return (
     <section id="contact" className="py-20">
       <div className="section-container">
-        <motion.h2 
+        <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -117,8 +117,8 @@ const ContactSection = () => {
           >
             <motion.div variants={itemAnimation}>
               <h3 className="text-2xl font-bold mb-4">Let's Connect</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. 
+              <p className="text-gray-300 mb-6">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
                 Feel free to reach out to me through the form or via my social media channels.
               </p>
             </motion.div>
@@ -132,7 +132,7 @@ const ContactSection = () => {
                     href={social.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-light-dark dark:bg-dark-light hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-dark-light hover:bg-primary transition-colors"
                   >
                     <span>{social.icon}</span>
                     <span>{social.name}</span>
@@ -149,24 +149,24 @@ const ContactSection = () => {
           >
             <motion.div variants={itemAnimation} className="card shadow-lg">
               <h3 className="text-2xl font-bold mb-6">Send Me a Message</h3>
-              
+
               {submitMessage && (
-                <div className="mb-6 p-4 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200 rounded-md">
+                <div className="mb-6 p-4 bg-green-900/30 text-green-200 rounded-md">
                   {submitMessage}
                 </div>
               )}
-              
-              <form 
-                onSubmit={handleSubmit} 
+
+              <form
+                onSubmit={handleSubmit}
                 className="space-y-6"
-                name="contact" 
+                name="contact"
                 method="POST"
                 data-netlify="true"
                 netlify-honeypot="bot-field"
               >
                 {/* Hidden input for Netlify form recognition */}
                 <input type="hidden" name="form-name" value="contact" />
-                
+
                 {/* Honeypot field to prevent spam */}
                 <p className="hidden">
                   <label>
@@ -202,7 +202,7 @@ const ContactSection = () => {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="subject" className="block mb-2 text-sm font-medium">Subject</label>
                   <input
@@ -216,7 +216,7 @@ const ContactSection = () => {
                     placeholder="What is this about?"
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block mb-2 text-sm font-medium">Message</label>
                   <textarea
@@ -230,7 +230,7 @@ const ContactSection = () => {
                     placeholder="Your message here..."
                   ></textarea>
                 </div>
-                
+
                 <button
                   type="submit"
                   disabled={isSubmitting}

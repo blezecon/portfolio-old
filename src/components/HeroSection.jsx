@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { FiArrowDown } from 'react-icons/fi';
-import { useTheme } from '../context/ThemeContext';
 import { Suspense, lazy, useState, useEffect } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import EnchantedCode from './EnchantedCode'; // Import the new component
@@ -79,7 +78,6 @@ const ModelFallback = () => {
 
 const HeroSection = () => {
   const lenis = useLenis();
-  const { isDarkMode } = useTheme();
 
   const handleScrollTo = (e, href) => {
     e.preventDefault();
@@ -273,13 +271,13 @@ export default myJourney
             transition={{ duration: 0.8 }}
           >
             <h1 className={`${textSizes.heading} font-bold mb-4`}>
-              <span className="font-minecraft text-dark dark:text-white">HI, I-M</span> <span className="font-minecraft text-primary">DIPENDU RAY</span>
+              <span className="font-minecraft text-white">HI, I-M</span> <span className="font-minecraft text-primary">DIPENDU RAY</span>
               <span className="inline-block ml-2 animate-pulse-slow">👋</span>
             </h1>
             <h2 className={`${textSizes.subheading} mb-6`}>
-              <span className="font-header text-dark dark:text-white">ALSO KNOWN AS</span> <span className="font-header text-secondary">BLEZECON</span>
+              <span className="font-header text-white">ALSO KNOWN AS</span> <span className="font-header text-secondary">BLEZECON</span>
             </h2>
-            <p className={`${textSizes.paragraph} text-gray-600 dark:text-gray-300`}>
+            <p className={`${textSizes.paragraph} text-gray-300`}>
               A passionate second-year college student at Techno Main SaltLake with
               a strong foundation in web development, programming, and problem-solving.
             </p>
@@ -300,12 +298,12 @@ export default myJourney
             <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
               <EnchantedCode
                 code={codeSnippet1}
-                className={`${is4K ? 'text-lg md:text-xl' : isHighRes ? 'text-base md:text-lg' : 'text-xs md:text-sm'} font-mono text-primary dark:text-primary-light p-4 rounded-lg opacity-50`}
+                className={`${is4K ? 'text-lg md:text-xl' : isHighRes ? 'text-base md:text-lg' : 'text-xs md:text-sm'} font-mono text-primary-light p-4 rounded-lg opacity-50`}
               />
 
               <EnchantedCode
                 code={codeSnippet2}
-                className={`${is4K ? 'text-lg md:text-xl' : isHighRes ? 'text-base md:text-lg' : 'text-xs md:text-sm'} font-mono text-secondary dark:text-secondary-light p-4 rounded-lg absolute bottom-0 right-0 opacity-50`}
+                className={`${is4K ? 'text-lg md:text-xl' : isHighRes ? 'text-base md:text-lg' : 'text-xs md:text-sm'} font-mono text-secondary-light p-4 rounded-lg absolute bottom-0 right-0 opacity-50`}
               />
             </div>
           </motion.div>
@@ -318,7 +316,7 @@ export default myJourney
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
         >
-          <a href="#" data-target="#about" onClick={(e) => handleScrollTo(e, '#about')} className={`flex flex-col items-center text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors ${is4K ? 'text-xl' : isHighRes ? 'text-lg' : 'text-base'}`}>
+          <a href="#" data-target="#about" onClick={(e) => handleScrollTo(e, '#about')} className={`flex flex-col items-center text-gray-300 hover:text-primary transition-colors ${is4K ? 'text-xl' : isHighRes ? 'text-lg' : 'text-base'}`}>
             <span className="mb-2">Scroll Down</span>
             <FiArrowDown className={`${is4K ? 'text-4xl' : isHighRes ? 'text-3xl' : 'text-xl'}`} />
           </a>

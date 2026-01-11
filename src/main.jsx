@@ -7,16 +7,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 // Import your index.css which now includes custom Swiper styles
 import './index.css';
-import { ThemeProvider } from './context/ThemeContext';
 
 console.log('🚀 React app is initializing...');
 
 try {
   ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </React.StrictMode>,
   );
   console.log('✅ React app rendered successfully');

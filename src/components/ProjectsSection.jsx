@@ -32,7 +32,7 @@ const ProjectsSection = () => {
       tags: ["Python", "Pygame"],
       image: "https://i.ibb.co/vCdtTDKC/retro.png",
       github: "https://github.com/blezecon/PyGame",
-      
+
     },
     {
       title: "Chat web app",
@@ -95,13 +95,13 @@ const ProjectsSection = () => {
   ];
 
   const [filter, setFilter] = useState('all');
-  
+
   // Get unique tags for filter buttons
   const allTags = [...new Set(projects.flatMap(project => project.tags))];
-  
+
   // Filter projects based on selected tag
-  const filteredProjects = filter === 'all' 
-    ? projects 
+  const filteredProjects = filter === 'all'
+    ? projects
     : projects.filter(project => project.tags.includes(filter));
 
   const container = {
@@ -124,9 +124,9 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-20 bg-light-dark/50 dark:bg-dark-light/10">
+    <section id="projects" className="py-20 bg-dark-light/10">
       <div className="section-container">
-        <motion.h2 
+        <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -139,24 +139,22 @@ const ProjectsSection = () => {
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           <button
             onClick={() => setFilter('all')}
-            className={`filter-button ${
-              filter === 'all'
+            className={`filter-button ${filter === 'all'
                 ? 'filter-button-active'
                 : 'filter-button-inactive'
-            }`}
+              }`}
           >
             All
           </button>
-          
+
           {allTags.map(tag => (
             <button
               key={tag}
               onClick={() => setFilter(tag)}
-              className={`filter-button ${
-                filter === tag
+              className={`filter-button ${filter === tag
                   ? 'filter-button-active'
                   : 'filter-button-inactive'
-              }`}
+                }`}
             >
               {tag}
             </button>
@@ -210,17 +208,17 @@ const ProjectsSection = () => {
                   className="card overflow-hidden group h-full"
                 >
                   <div className="relative overflow-hidden mb-4 rounded-lg h-60">
-                    <img 
-                      src={project.image} 
-                      alt={project.title} 
+                    <img
+                      src={project.image}
+                      alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-DEFAULT/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                       <div className="flex gap-4">
                         {project.github && (
-                          <a 
-                            href={project.github} 
-                            target="_blank" 
+                          <a
+                            href={project.github}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="bg-dark-light/80 hover:bg-primary-DEFAULT text-white p-3 rounded-full transition-colors"
                           >
@@ -228,9 +226,9 @@ const ProjectsSection = () => {
                           </a>
                         )}
                         {project.live && (
-                          <a 
-                            href={project.live} 
-                            target="_blank" 
+                          <a
+                            href={project.live}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="bg-dark-light/80 hover:bg-primary-DEFAULT text-white p-3 rounded-full transition-colors"
                           >
@@ -240,10 +238,10 @@ const ProjectsSection = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
-                  
+                  <p className="text-gray-300 mb-4">{project.description}</p>
+
                   <div className="flex flex-wrap gap-2 mb-3">
                     {project.tags.map((tag, tagIndex) => (
                       <span key={tagIndex} className="skill-badge flex items-center gap-1">

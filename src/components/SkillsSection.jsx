@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { 
-  FiCode, FiDatabase, FiLayers, FiTool, FiGlobe, FiServer, 
-  FiTerminal, FiCloud, FiSmartphone 
+import {
+  FiCode, FiDatabase, FiLayers, FiTool, FiGlobe, FiServer,
+  FiTerminal, FiCloud, FiSmartphone
 } from 'react-icons/fi';
 
 const SkillsSection = () => {
@@ -81,7 +81,7 @@ const SkillsSection = () => {
   return (
     <section id="skills" className="py-20">
       <div className="section-container">
-        <motion.h2 
+        <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -101,15 +101,15 @@ const SkillsSection = () => {
             <motion.div
               key={index}
               variants={item}
-              className="card hover:shadow-md hover:shadow-primary-light/20 dark:hover:shadow-primary-dark/20 transition-all duration-300"
+              className="card hover:shadow-md hover:shadow-primary-dark/20 transition-all duration-300"
             >
               <div className="flex items-center mb-4">
-                <div className="w-10 h-10 rounded-md bg-primary-light/20 dark:bg-primary-dark/20 flex items-center justify-center mr-3">
+                <div className="w-10 h-10 rounded-md bg-primary-dark/20 flex items-center justify-center mr-3">
                   <span className="text-primary-DEFAULT text-xl">{category.icon}</span>
                 </div>
                 <h3 className="text-xl font-semibold">{category.title}</h3>
               </div>
-              
+
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill, skillIndex) => (
                   <span key={skillIndex} className="skill-badge">
