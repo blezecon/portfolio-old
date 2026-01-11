@@ -8,6 +8,7 @@ import ProjectsSection from './components/ProjectsSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import ParticleBackground from './components/ParticleBackground';
+import SmoothScroll from './components/SmoothScroll';
 
 // Error fallback component
 const ErrorFallback = ({ error }) => {
@@ -16,8 +17,8 @@ const ErrorFallback = ({ error }) => {
       <div className="bg-white dark:bg-dark-light p-6 rounded-lg shadow-lg max-w-md">
         <h2 className="text-xl font-bold text-red-600 mb-4">Something went wrong</h2>
         <p className="mb-4">{error.message}</p>
-        <button 
-          onClick={() => window.location.reload()} 
+        <button
+          onClick={() => window.location.reload()}
           className="bg-primary text-white px-4 py-2 rounded"
         >
           Try again
@@ -54,18 +55,20 @@ function App() {
 
   return (
     <ThemeProvider>
-      <ParticleBackground />
-      <div className="relative min-h-screen">
-        <Navbar />
-        <main>
-          <HeroSection />
-          <AboutSection />
-          <SkillsSection />
-          <ProjectsSection />
-          <ContactSection />
-        </main>
-        <Footer />
-      </div>
+      <SmoothScroll>
+        <ParticleBackground />
+        <div className="relative min-h-screen">
+          <Navbar />
+          <main>
+            <HeroSection />
+            <AboutSection />
+            <SkillsSection />
+            <ProjectsSection />
+            <ContactSection />
+          </main>
+          <Footer />
+        </div>
+      </SmoothScroll>
     </ThemeProvider>
   );
 }

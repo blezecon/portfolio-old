@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
+import { useLenis } from './SmoothScroll';
 
 const Navbar = () => {
+  const lenis = useLenis();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
@@ -16,6 +18,25 @@ const Navbar = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    if (lenis) {
+      lenis.scrollTo(href);
+    } else {
+      // Fallback if Lenis isn't initialized (e.g. reduced motion)
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Update history state for back button, but keep URL clean
+    window.history.pushState({ target: href }, '', '/');
+
+    // Close mobile menu if open
+    setIsMobileMenuOpen(false);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -26,15 +47,19 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/90 dark:bg-dark/90 backdrop-blur-md shadow-md py-2' 
-        : 'bg-transparent backdrop-blur-sm py-4'
-    }`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+      ? 'bg-white/90 dark:bg-dark/90 backdrop-blur-md shadow-md py-2'
+      : 'bg-transparent backdrop-blur-sm py-4'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center justify-between">
           {/* Logo - Updated with flex and self-center to ensure vertical alignment */}
-          <a href="#home" className="flex items-center text-5xl font-bold text-primary">
+          <a
+            href="#"
+            data-target="#home"
+            className="flex items-center text-5xl font-bold text-primary"
+            onClick={(e) => handleNavClick(e, '#home')}
+          >
             <span className="font-minecraft flex items-center my-auto">BLEZECON</span>
           </a>
 
@@ -43,13 +68,15 @@ const Navbar = () => {
             {navItems.map((item) => (
               <a
                 key={item.name}
-                href={item.href}
+                href="#"
+                data-target={item.href}
                 className="text-dark dark:text-light hover:text-primary dark:hover:text-primary transition-colors font-medium"
+                onClick={(e) => handleNavClick(e, item.href)}
               >
                 {item.name}
               </a>
             ))}
-            
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
@@ -69,7 +96,7 @@ const Navbar = () => {
             >
               {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
             </button>
-            
+
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md bg-light-dark/50 dark:bg-dark-light/50 backdrop-blur-sm text-dark dark:text-light transition-colors focus:outline-none"
@@ -95,9 +122,10 @@ const Navbar = () => {
               {navItems.map((item) => (
                 <a
                   key={item.name}
-                  href={item.href}
+                  href="#"
+                  data-target={item.href}
                   className="block py-2 px-3 text-dark dark:text-light hover:bg-light-dark/30 dark:hover:bg-dark/30 rounded-md transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, item.href)}
                 >
                   {item.name}
                 </a>
