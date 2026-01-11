@@ -1,23 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 // Import the model directly
-import modelPath from '../assets/model.glb';
+import modelPath from '../assets/modelEX.glb';
 
-// Check if model should be visible based on screen width
-const shouldShowModel = () => {
-  return window.innerWidth >= 768; // Show when width is >= 768px
-};
-
-// Check if we're at 3072px width
-const is3072Width = () => {
-  return (window.innerWidth >= 3072 && window.innerWidth < 3800);
-};
-
-// Check if we're at 4K resolution (3840 x 2160)
-const is4KResolution = () => {
-  return (window.innerWidth >= 3800 && window.innerWidth <= 3900);
-};
+// Fixed dimensions for the model viewer
+const FIXED_SIZE = 500;
 
 const SimpleModelViewer = () => {
   const containerRef = useRef(null);
@@ -25,49 +14,22 @@ const SimpleModelViewer = () => {
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const modelGroupRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [is3K, setIs3K] = useState(is3072Width());
-  const [is4K, setIs4K] = useState(is4KResolution());
+  const [dimensions] = useState({ width: FIXED_SIZE, height: FIXED_SIZE });
 
-  // Get appropriate scale based on screen size
-  const getResponsiveScale = () => {
-    const width = window.innerWidth;
 
-    // Special case for 4K resolution (3840 x 2160) - much larger
-    if (is4KResolution()) {
-      return { size: 900, modelOffset: 0.1 }; // Increased from 700 to 900
-    }
-    // Special case for 3072px width screens - middle point between previous positions
-    if (is3072Width()) {
-      return { size: 750, modelOffset: 0.25 }; // Middle point between 0.1 and 0.4
-    }
-    // Special case for 2560x1440 resolution
-    if (width >= 2500 && width <= 2600) return { size: 650, modelOffset: 0.2 };
-    // Special case for 1366x768 resolution
-    if (width >= 1024 && width <= 1440) return { size: 400, modelOffset: 0.5 };
-    if (width < 1024) return { size: 400, modelOffset: 0.25 }; // lg
-    if (width < 1280) return { size: 450, modelOffset: 0.3 }; // xl
-    return { size: 550, modelOffset: 0.3 }; // 2xl and above
-  };
 
   useEffect(() => {
-    // Early return if screen width < 768px to save resources
-    if (!shouldShowModel() || !containerRef.current) return;
+    if (!containerRef.current) return;
 
-    // Update resolution states
-    setIs3K(is3072Width());
-    setIs4K(is4KResolution());
-
-    // Get responsive sizing
-    const { size, modelOffset } = getResponsiveScale();
-    setDimensions({ width: size, height: size });
+    const size = FIXED_SIZE;
+    const modelOffset = 0.0;
 
     // Create a scene
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
     // Use a wider field of view for a more dramatic appearance
-    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+    const camera = new THREE.PerspectiveCamera(85, 1, 0.1, 1000);
     cameraRef.current = camera;
 
     // Create renderer with transparent background
@@ -165,47 +127,30 @@ const SimpleModelViewer = () => {
       targetRotationX = Math.max(-Math.PI / 6, Math.min(Math.PI / 6, targetRotationX));
     };
 
-    // Window resize handler for responsive canvas
-    const handleResize = () => {
-      // If screen width is now too small, don't update anything
-      if (!shouldShowModel()) return;
 
-      // Update resolution states
-      setIs3K(is3072Width());
-      setIs4K(is4KResolution());
 
-      if (!containerRef.current || !rendererRef.current || !cameraRef.current) return;
-
-      // Update dimensions based on screen size
-      const { size, modelOffset } = getResponsiveScale();
-      setDimensions({ width: size, height: size });
-
-      // Update renderer size
-      rendererRef.current.setSize(size, size);
-
-      // Update model position
-      if (modelGroupRef.current) {
-        modelGroupRef.current.position.x = modelOffset;
-      }
-
-      // Re-render immediately to prevent flickering
-      if (sceneRef.current && cameraRef.current) {
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
-      }
-    };
-
-    // Add event listeners
+    // Add event listener
     window.addEventListener('mousemove', onMouseMove, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
 
     // Load the 3D model
     const loader = new GLTFLoader();
+
+    // Setup DRACOLoader for compressed models
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/');
+    loader.setDRACOLoader(dracoLoader);
 
     try {
       // Use the imported model path
       loader.load(
         modelPath,
         (gltf) => {
+          // Stop all animations - keep model in idle mode
+          if (gltf.animations && gltf.animations.length > 0) {
+            // Don't create or start any animation mixer
+            console.log('Model has animations, but keeping it in idle mode');
+          }
+
           // Center and size the model
           const box = new THREE.Box3().setFromObject(gltf.scene);
           const center = box.getCenter(new THREE.Vector3());
@@ -263,13 +208,9 @@ const SimpleModelViewer = () => {
     // Start animation loop
     animate();
 
-    // Handle initial resize
-    handleResize();
-
     // Clean up
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
-      window.removeEventListener('resize', handleResize);
 
       if (containerRef.current && rendererRef.current) {
         try {
@@ -300,45 +241,21 @@ const SimpleModelViewer = () => {
     };
   }, []);
 
-  // If screen width is less than 768px, don't render anything
-  if (!shouldShowModel()) {
-    return null;
-  }
-
-  // Set the container styles
-  const getContainerStyle = () => {
-    const baseStyle = {
-      width: `${dimensions.width}px`,
-      height: `${dimensions.height}px`,
-      margin: '0 auto',
-      background: 'transparent',
-      border: 'none',
-      outline: 'none',
-      boxShadow: 'none',
-      transition: 'width 0.3s, height 0.3s'
-    };
-
-    // If it's exactly 3072px width, position between previous values
-    if (is3K) {
-      baseStyle.marginLeft = '105px'; // Middle between 60px and 150px
-      baseStyle.position = 'relative';
-      baseStyle.right = '-50px'; // Middle between -20px and -80px
-    }
-
-    // If it's 4K resolution, apply special styling
-    if (is4K) {
-      baseStyle.position = 'relative';
-      baseStyle.right = '-30px';  // Specific positioning for 4K
-    }
-
-    return baseStyle;
+  // Fixed container styles
+  const containerStyle = {
+    width: `${dimensions.width}px`,
+    height: `${dimensions.height}px`,
+    margin: '0 auto',
+    background: 'transparent',
+    border: 'none',
+    outline: 'none',
+    boxShadow: 'none'
   };
 
-  // The container style now uses the calculated dimensions with special positioning
   return (
     <div
       ref={containerRef}
-      style={getContainerStyle()}
+      style={containerStyle}
     />
   );
 };

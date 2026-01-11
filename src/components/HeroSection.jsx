@@ -251,9 +251,19 @@ export default myJourney
       {modelVisible && showModel && (
         <ErrorBoundary FallbackComponent={() => null}>
           <div
-            className="absolute pointer-events-none hidden md:block"
-            style={getModelContainerStyle()}
-          >
+              className="
+              absolute pointer-events-none hidden
+              md:block z-20
+              transition-all duration-300 ease-out
+
+              md:top-[35%] md:right-[5%] md:scale-80
+              lg:top-[20%] lg:right-[5%] lg:scale-70
+              xl:top-[25%] xl:right-[10%] xl:scale-80
+              2xl:top-[30%] 2xl:right-[30%] 2xl:scale-100
+              3xl:top-[20%] 3xl:right-[25%] 3xl:scale-100
+              4xl:top-[30%] 4xl:right-[30%] 4xl:scale-100
+              "
+              >
             <Suspense fallback={<ModelFallback />}>
               <SimpleModelViewer />
             </Suspense>
