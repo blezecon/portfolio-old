@@ -106,7 +106,7 @@ function Blezecon
   
   
   useEffect 
-    console.log Portfolio loaded!
+
   
 
   return 

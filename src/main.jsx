@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 // Import your index.css which now includes custom Swiper styles
 import './index.css';
 
-console.log('🚀 React app is initializing...');
+
 
 try {
   ReactDOM.createRoot(document.getElementById('root')).render(
@@ -16,7 +16,7 @@ try {
       <App />
     </React.StrictMode>,
   );
-  console.log('✅ React app rendered successfully');
+
 } catch (error) {
   console.error('❌ Error rendering React app:', error);
   document.body.innerHTML = `

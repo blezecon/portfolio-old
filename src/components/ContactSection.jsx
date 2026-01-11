@@ -58,7 +58,6 @@ const ContactSection = () => {
       }
     } catch (error) {
       setSubmitMessage('Oops! There was an error submitting the form. Please try again.');
-      console.error('Form submission error:', error);
     } finally {
       setIsSubmitting(false);
     }
