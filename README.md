@@ -1,8 +1,13 @@
-# Portfolio
+# Portfolio (Discontinued)
 
 ## Overview
 
-This is a personal portfolio website showcasing my work, skills, and experiences in an interactive and engaging way. Built with modern web technologies to create a dynamic and visually appealing user experience.
+This repository contains the source code for my personal portfolio website, originally created to showcase my work, skills, and experience using modern frontend technologies and advanced visual effects.
+This project has now been discontinued.
+
+The primary blocker was achieving consistent, reliable responsiveness of the 3D model across all devices and screen sizes. Despite extensive optimization and refactoring, this limitation could not be fully resolved without compromising performance or user experience. As a result, development on this version has been halted.
+
+The repository is preserved for learning and reference purposes.
 
 ## Technologies Used
 
@@ -12,6 +17,7 @@ This is a personal portfolio website showcasing my work, skills, and experiences
 - [SwipeJS](https://swiperjs.com/) - Modern mobile touch slider
 - [Framer Motion](https://www.framer.com/motion/) - Animation library for React
 - [Three.js](https://threejs.org/) - JavaScript 3D library
+- [lenis](https://lenis.darkroom.engineering/) - A smooth scroll library
 
 ## Installation
 
